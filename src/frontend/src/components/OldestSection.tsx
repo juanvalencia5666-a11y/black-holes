@@ -37,6 +37,125 @@ const ANIM = {
   transition: "opacity 0.6s ease, transform 0.6s ease",
 };
 
+/** SVG: M87* first real image recreation (ring of light around dark center) */
+function M87SVG() {
+  return (
+    <svg
+      viewBox="0 0 700 380"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-full"
+      aria-label="Recreación artística de M87* — primera imagen real de un agujero negro capturada por el Event Horizon Telescope en 2019"
+    >
+      <title>
+        Recreación artística de M87 primera imagen real de un agujero negro
+      </title>
+      <defs>
+        <radialGradient id="m87-bg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="oklch(0.1 0.04 280)" />
+          <stop offset="100%" stopColor="oklch(0.06 0 0)" />
+        </radialGradient>
+        {/* The famous asymmetric bright ring */}
+        <radialGradient id="m87-ring" cx="50%" cy="35%" r="60%">
+          <stop offset="0%" stopColor="oklch(0.95 0.25 55)" />
+          <stop offset="30%" stopColor="oklch(0.82 0.28 43)" />
+          <stop offset="60%" stopColor="oklch(0.62 0.22 25 / 0.6)" />
+          <stop offset="100%" stopColor="transparent" />
+        </radialGradient>
+        <radialGradient id="m87-shadow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="oklch(0.02 0 0)" />
+          <stop offset="80%" stopColor="oklch(0.03 0 0)" />
+          <stop offset="100%" stopColor="oklch(0.06 0 0 / 0)" />
+        </radialGradient>
+        <filter id="m87-blur" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="14" />
+        </filter>
+        <filter id="m87-glow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="6" result="b" />
+          <feMerge>
+            <feMergeNode in="b" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      <rect width="700" height="380" fill="url(#m87-bg)" />
+
+      {/* Outer cosmic haze */}
+      <circle
+        cx="350"
+        cy="190"
+        r="160"
+        fill="oklch(0.55 0.18 43 / 0.08)"
+        filter="url(#m87-blur)"
+      />
+
+      {/* The bright ring — asymmetric (brighter bottom-left, dimmer top-right like EHT) */}
+      <circle
+        cx="350"
+        cy="190"
+        r="100"
+        fill="none"
+        stroke="oklch(0.88 0.26 52)"
+        strokeWidth="30"
+        filter="url(#m87-blur)"
+      />
+      {/* Brightest region — bottom-left quadrant (as in real EHT image) */}
+      <path
+        d="M 350 190 m -100 0 a 100 100 0 0 0 70 71"
+        fill="none"
+        stroke="oklch(0.95 0.28 55)"
+        strokeWidth="40"
+        filter="url(#m87-blur)"
+        strokeLinecap="round"
+      />
+
+      {/* Secondary glow ring */}
+      <circle
+        cx="350"
+        cy="190"
+        r="100"
+        fill="none"
+        stroke="oklch(0.75 0.24 43 / 0.5)"
+        strokeWidth="8"
+        filter="url(#m87-glow)"
+      >
+        <animate
+          attributeName="stroke-opacity"
+          values="0.35;0.65;0.35"
+          dur="5s"
+          repeatCount="indefinite"
+        />
+      </circle>
+
+      {/* Black shadow (event horizon silhouette) */}
+      <circle cx="350" cy="190" r="82" fill="url(#m87-shadow)" />
+      <circle cx="350" cy="190" r="70" fill="oklch(0.02 0 0)" />
+
+      {/* Caption */}
+      <text
+        x="350"
+        y="355"
+        fontFamily="monospace"
+        fontSize="12"
+        fill="oklch(0.55 0 0)"
+        textAnchor="middle"
+      >
+        M87* — Primera Imagen Real · Event Horizon Telescope Collaboration, 2019
+      </text>
+      <text
+        x="350"
+        y="370"
+        fontFamily="monospace"
+        fontSize="10"
+        fill="oklch(0.4 0 0)"
+        textAnchor="middle"
+      >
+        Recreación artística · CC BY 4.0
+      </text>
+    </svg>
+  );
+}
+
 export default function OldestSection() {
   const sectionRef = useIntersectionAnimate(140, 0.12);
 
@@ -149,22 +268,7 @@ export default function OldestSection() {
           }}
         >
           <div className="relative rounded-2xl overflow-hidden glow-border">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Black_hole_-_Messier_87_crop_max_res.jpg"
-              alt="Primera imagen real de un agujero negro: M87, capturada por el Event Horizon Telescope en 2019"
-              className="w-full object-cover"
-              loading="lazy"
-              style={{ maxHeight: "380px" }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4">
-              <p className="font-display font-semibold text-foreground text-sm">
-                M87 — Primera Imagen Real
-              </p>
-              <p className="font-body text-xs text-muted-foreground">
-                Event Horizon Telescope Collaboration, 2019 · CC BY 4.0
-              </p>
-            </div>
+            <M87SVG />
           </div>
           <div>
             <h3 className="font-display font-bold text-2xl text-glow-accent mb-4">
