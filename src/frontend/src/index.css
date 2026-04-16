@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk";
+    --font-body: "Inter";
+    --font-mono: "JetBrains Mono";
+    --radius: 0.375rem;
+
+    --background: 0.06 0 0;
+    --foreground: 0.95 0 0;
+    --card: 0.1 0 0;
+    --card-foreground: 0.93 0 0;
+    --popover: 0.12 0 0;
+    --popover-foreground: 0.95 0 0;
+
+    --primary: 0.55 0.18 280;
+    --primary-foreground: 0.98 0 0;
+
+    --secondary: 0.48 0.22 250;
+    --secondary-foreground: 0.98 0 0;
+    --muted: 0.25 0 0;
+    --muted-foreground: 0.6 0 0;
+
+    --accent: 0.68 0.24 43;
+    --accent-foreground: 0.1 0 0;
+
+    --destructive: 0.58 0.25 30;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.18 0 0;
+    --input: 0.15 0 0;
+    --ring: 0.55 0.18 280;
+
+    --chart-1: 0.62 0.25 280;
+    --chart-2: 0.58 0.24 30;
+    --chart-3: 0.56 0.22 250;
+    --chart-4: 0.68 0.24 43;
+    --chart-5: 0.65 0.22 15;
+
+    --sidebar: 0.08 0 0;
+    --sidebar-foreground: 0.95 0 0;
+    --sidebar-primary: 0.55 0.18 280;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.68 0.24 43;
+    --sidebar-accent-foreground: 0.1 0 0;
+    --sidebar-border: 0.18 0 0;
+    --sidebar-ring: 0.55 0.18 280;
+
+    --gradient-cosmic: linear-gradient(
+      135deg,
+      oklch(0.5 0.18 280) 0%,
+      oklch(0.48 0.22 250) 50%,
+      oklch(0.06 0 0) 100%
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      oklch(0.68 0.24 43) 0%,
+      oklch(0.55 0.18 280) 100%
+    );
+  }
+
+  .dark {
+    --background: 0.06 0 0;
+    --foreground: 0.95 0 0;
+    --card: 0.1 0 0;
+    --card-foreground: 0.93 0 0;
+    --popover: 0.12 0 0;
+    --popover-foreground: 0.95 0 0;
+
+    --primary: 0.62 0.22 280;
+    --primary-foreground: 0.06 0 0;
+
+    --secondary: 0.58 0.25 250;
+    --secondary-foreground: 0.06 0 0;
+    --muted: 0.22 0 0;
+    --muted-foreground: 0.55 0 0;
+
+    --accent: 0.72 0.26 43;
+    --accent-foreground: 0.06 0 0;
+
+    --destructive: 0.63 0.27 30;
+    --destructive-foreground: 0.95 0 0;
+
+    --border: 0.16 0 0;
+    --input: 0.14 0 0;
+    --ring: 0.62 0.22 280;
+
+    --chart-1: 0.65 0.25 280;
+    --chart-2: 0.62 0.26 30;
+    --chart-3: 0.6 0.24 250;
+    --chart-4: 0.72 0.26 43;
+    --chart-5: 0.68 0.24 15;
+
+    --sidebar: 0.08 0 0;
+    --sidebar-foreground: 0.95 0 0;
+    --sidebar-primary: 0.62 0.22 280;
+    --sidebar-primary-foreground: 0.06 0 0;
+    --sidebar-accent: 0.72 0.26 43;
+    --sidebar-accent-foreground: 0.06 0 0;
+    --sidebar-border: 0.16 0 0;
+    --sidebar-ring: 0.62 0.22 280;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .gradient-cosmic {
+    background: var(--gradient-cosmic);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .glow-border {
+    border: 1px solid oklch(0.62 0.22 280 / 0.4);
+    box-shadow: 0 0 20px oklch(0.62 0.22 280 / 0.2), inset 0 0 20px
+      oklch(0.62 0.22 280 / 0.05);
+  }
+
+  .glow-accent {
+    border: 1px solid oklch(0.68 0.24 43 / 0.5);
+    box-shadow: 0 0 15px oklch(0.68 0.24 43 / 0.25);
+  }
+
+  .text-glow-primary {
+    color: oklch(0.62 0.22 280);
+    text-shadow: 0 0 20px oklch(0.62 0.22 280 / 0.4);
+  }
+
+  .text-glow-accent {
+    color: oklch(0.68 0.24 43);
+    text-shadow: 0 0 15px oklch(0.68 0.24 43 / 0.3);
+  }
+
+  .cosmic-backdrop {
+    backdrop-filter: blur(12px);
+    background: oklch(0.1 0 0 / 0.6);
+  }
+
+  .floating {
+    animation: floating 3s ease-in-out infinite;
+  }
+
+  @keyframes floating {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("/assets/fonts/SpaceGrotesk-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Inter";
+    src: url("/assets/fonts/Inter.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+}
